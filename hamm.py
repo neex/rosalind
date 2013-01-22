@@ -1,3 +1,4 @@
 #!/usr/bin/env python
+from itertools import starmap
 with open("rosalind_hamm.txt") as f:
-    print sum(map(lambda t: str.__ne__(*t),zip(f.readline(),f.readline())))
+    print sum(starmap(str.__ne__,zip(f.readline(),f.readline())))

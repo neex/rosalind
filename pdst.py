@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from itertools import starmap
 def readdata(filename):
     with open(filename) as t:
         lines = t.readlines()        
@@ -11,8 +12,8 @@ def readdata(filename):
             currentStrs = []
         else:
             currentStrs.append(s.strip())
-data = [(name,s[:3],s[-3:]) for (name,s) in readdata("rosalind_grph.txt")]
-for (namef,preff,sufff) in data:
-    for (namet,preft,sufft) in data:
-        if namef!= namet and sufff == preft:
-            print namef,namet
+data=list(readdata("rosalind_pdst.txt"))
+for id1,data1 in data:
+    for id2,data2 in data:
+        print sum(starmap(str.__ne__,zip(data1,data2)))*1.0/len(data1),
+    print

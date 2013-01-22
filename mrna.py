@@ -10,12 +10,17 @@ dictionary=dict((
 ("UCG","S"),      ("CCG","P"),      ("ACG","T"),      ("GCG","A"),
 ("UAU","Y"),      ("CAU","H"),      ("AAU","N"),      ("GAU","D"),
 ("UAC","Y"),      ("CAC","H"),      ("AAC","N"),      ("GAC","D"),
-("UAA",""),   ("CAA","Q"),      ("AAA","K"),      ("GAA","E"),
-("UAG",""),   ("CAG","Q"),      ("AAG","K"),      ("GAG","E"),
+("UAA","#"),   ("CAA","Q"),      ("AAA","K"),      ("GAA","E"),
+("UAG","#"),   ("CAG","Q"),      ("AAG","K"),      ("GAG","E"),
 ("UGU","C"),      ("CGU","R"),      ("AGU","S"),      ("GGU","G"),
 ("UGC","C"),      ("CGC","R"),      ("AGC","S"),      ("GGC","G"),
-("UGA",""),   ("CGA","R"),      ("AGA","R"),      ("GGA","G"),
+("UGA","#"),   ("CGA","R"),      ("AGA","R"),      ("GGA","G"),
 ("UGG","W"),      ("CGG","R"),      ("AGG","R"),      ("GGG","G")))
-with open("rosalind_prot.txt") as f:
+
+vr = dict()
+for a,b in dictionary.items():
+    vr[b] = vr.get(b,0) + 1
+    
+with open("rosalind_mrna.txt") as f:
     s = f.readline().strip()    
-print "".join(dictionary[s[3*i:3*i+3]] for i in xrange(len(s)/3))
+print reduce(lambda x,y: x*y % 1000000,map(vr.get,s+"#"),1)

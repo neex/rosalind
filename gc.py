@@ -1,18 +1,22 @@
-#!/usr/bin/env python
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+
 def readdata(filename):
     with open(filename) as t:
-        lines = t.readlines()        
+        lines = t.readlines()
     currentId = None
-    for s in lines + [">"]:
-        if s[0] == ">":
+    for s in lines + ['>']:
+        if s[0] == '>':
             if currentId is not None:
-                yield (currentId,"".join(currentStrs))
+                yield (currentId, ''.join(currentStrs))
             currentId = s.strip()[1:]
             currentStrs = []
         else:
             currentStrs.append(s.strip())
-            
-(perc,name) = max([(100.0 * len(val.translate(None, "AT")) / len(val),name) for name,val in readdata("rosalind_gc.txt")])
+
+
+(perc, name) = max([(100.0 * len(val.translate(None, 'AT')) / len(val), name) for (name, val) in readdata('rosalind_gc.txt')])
 print name
-print str(perc)+"%"
+print str(perc) + '%'
 

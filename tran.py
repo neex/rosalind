@@ -16,8 +16,13 @@ def readdata(filename):
             currentStrs.append(s.strip())
 
 
-data = list(readdata('rosalind_pdst.txt'))
-for (id1, data1) in data:
-    for (id2, data2) in data:
-        print sum(map(str.__ne__, data1, data2)) * 1.0 / len(data1),
-    print
+((name1, s1), (name2, s2)) = readdata('rosalind_tran.txt')
+lat = ver = 0
+for (c1, c2) in zip(s1, s2):
+    if c1 == c2:
+        pass
+    elif set((c1, c2)) in (set('AG'), set('TC')):
+        lat += 1
+    else:
+        ver += 1
+print (lat + 0.0) / ver

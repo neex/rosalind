@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 with open('rosalind_iev.txt') as f:
+
     (
         AAAA,
         AAAa,

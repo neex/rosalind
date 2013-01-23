@@ -1,8 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from itertools import starmap
-
 masses = list((
     ('A', 71.03711),
     ('C', 103.00919),
@@ -33,4 +31,4 @@ def reverse_masses_get(x):
 
 with open('rosalind_spec.txt') as f:
     ps = map(float, filter(None, map(str.strip, f.readlines())))
-    print ''.join(map(reverse_masses_get, starmap(float.__sub__, zip(ps[1:], ps))))
+    print ''.join(map(reverse_masses_get, map(float.__sub__, ps[1:], ps[:-1])))

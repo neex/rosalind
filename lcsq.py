@@ -22,4 +22,3 @@ while i != 0 and j != 0:
         i -= 1
 
 print ''.join(t[::-1])
-

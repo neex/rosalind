@@ -50,8 +50,13 @@ def buildtree(tree):
     return (getnode(None), dd)
 
 
+blackqsum = 0
+resblack = 0
+
+
 def cnt(cur):
-    print cur
+    global blackqsum, resblack
+    tblack = blackqsum
     cur.slcnt = 0
     for son in cur.s:
         cur.slcnt += cnt(son)
@@ -59,11 +64,27 @@ def cnt(cur):
         cur.slcnt += 1
     if cur.s:
         cur.qhere = cur.s[0].slcnt * cur.s[1].slcnt + (cur.slcnt - 1) * ((1 if cur.lab else 0))
+        if len(cur.s) > 2:
+            cur.qhere += (cur.s[1].slcnt + cur.s[0].slcnt) * cur.s[2].slcnt
+    resblack = resblack + tblack * cur.qhere
+    blackqsum += cur.qhere
     return cur.slcnt
+
+
+resother = 0
+
+
+def cnt2(cur, a, b):
+    global resother
+    for i in cur.s:
+        cnt2(i, a + cur.qhere, b + cur.slcnt - i.slcnt)
+    resother = resother + (a - b * cur.slcnt) * cur.qhere
 
 
 with open('rosalind_cntq.txt') as f:
     n = int(f.readline().strip())
     (root, d) = buildtree(f.readline().strip())
+
     cnt(root)
-    print root
+    cnt2(root, 0, 0)
+    print (resother + resblack) % 1000000
